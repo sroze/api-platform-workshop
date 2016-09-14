@@ -6,12 +6,31 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
- * @ApiResource(itemOperations={
- *     "get"={"method"="GET"},
- *     "publish-reviews"={"route_name"="book_publish_reviews"}
- * })
+ * @ApiResource(attributes={
+ *     "filters"={"book.search"},
+ *     "normalization_context"={"groups"={"book_default_out"}},
+ *     "denormalization_context"={"groups"={"book_default_in"}}
+ *     },
+ *     collectionOperations={
+ *      "post"={"method"="POST"},
+ *      "get"={
+ *       "method"="GET",
+ *       "normalization_context"={"groups"={"book_collection_out"}}
+ *   }
+ *     },
+ *      itemOperations={
+ *      "put"={"method"="PUT"},
+ *      "publish-reviews"={"route_name"="book_publish_reviews"},
+ *      "get"={
+ *       "method"="GET",
+ *       "normalization_context"={"groups"={"book_item_out", "review_default_out"}}
+ *     }
+ *     })
  *
  * @ORM\Entity
  */
@@ -21,6 +40,7 @@ class Book
      * @ORM\Id
      * @ORM\Column(type="string")
      * @ORM\GeneratedValue(strategy="UUID")
+     * @Groups({"book_collection_out"})
      *
      * @var string
      */
@@ -28,6 +48,8 @@ class Book
 
     /**
      * @ORM\Column(type="string")
+     * @Groups({"book_collection_out", "book_default_in"})
+     * @Assert\Type(type="string")
      *
      * @var string
      */
@@ -35,7 +57,7 @@ class Book
 
     /**
      * @ORM\OneToMany(targetEntity="Review", mappedBy="book", cascade={"persist"})
-     *
+     * @Groups({"book_item_out", "book_default_in"})
      * @var Collection
      */
     private $reviews;
