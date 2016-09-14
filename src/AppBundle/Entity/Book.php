@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(attributes={
+ *     "filters"={"book.search"},
  *     "normalization_context"={"groups"={"book_default_out"}},
  *     "denormalization_context"={"groups"={"book_default_in"}}
  *     },
@@ -55,7 +56,7 @@ class Book
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Review", mappedBy="book")
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="book", cascade={"persist"})
      * @Groups({"book_item_out", "book_default_in"})
      * @var Collection
      */
