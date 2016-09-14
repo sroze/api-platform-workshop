@@ -10,7 +10,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 /**
  * @ApiResource(itemOperations={
  *     "get"={"method"="GET"},
- *     "buy"={"route_name"="book_import_reviews"}
+ *     "publish-reviews"={"route_name"="book_publish_reviews"}
  * })
  *
  * @ORM\Entity

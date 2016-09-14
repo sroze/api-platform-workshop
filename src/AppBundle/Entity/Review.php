@@ -29,6 +29,13 @@ class Review
     private $contents;
 
     /**
+     * @ORM\Column(type="boolean")
+     *
+     * @var boolean
+     */
+    private $published;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="reviews")
      * @ORM\JoinColumn(name="book_uuid", referencedColumnName="uuid")
      *
@@ -64,5 +71,21 @@ class Review
     public function getBook(): Book
     {
         return $this->book;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublished() : bool
+    {
+        return $this->published;
+    }
+
+    /**
+     * @param bool $published
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
     }
 }
