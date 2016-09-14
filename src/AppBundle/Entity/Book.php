@@ -8,7 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
- * @ApiResource
+ * @ApiResource(itemOperations={
+ *     "get"={"method"="GET"},
+ *     "buy"={"route_name"="book_buy"}
+ * })
  *
  * @ORM\Entity
  */
@@ -33,7 +36,7 @@ class Book
     /**
      * @ORM\OneToMany(targetEntity="Review", mappedBy="book")
      *
-     * @var Review[]
+     * @var Collection
      */
     private $reviews;
 
