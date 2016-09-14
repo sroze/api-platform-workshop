@@ -10,7 +10,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 /**
  * @ApiResource(itemOperations={
  *     "get"={"method"="GET"},
- *     "buy"={"route_name"="book_buy"}
+ *     "buy"={"route_name"="book_import_reviews"}
  * })
  *
  * @ORM\Entity
@@ -34,7 +34,7 @@ class Book
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Review", mappedBy="book")
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="book", cascade={"persist"})
      *
      * @var Collection
      */

@@ -35,4 +35,34 @@ class Review
      * @var Book
      */
     private $book;
+
+    public function __construct(Book $book, string $contents)
+    {
+        $this->contents = $contents;
+        $this->book = $book;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContents(): string
+    {
+        return $this->contents;
+    }
+
+    /**
+     * @return Book
+     */
+    public function getBook(): Book
+    {
+        return $this->book;
+    }
 }
