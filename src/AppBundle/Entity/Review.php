@@ -4,11 +4,16 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
  *
- * @ApiResource
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"review_default_out"}},
+ *     "denormalization_context"={"groups"={"review_default_in"}},
+ *     })
+ *
  */
 class Review
 {
@@ -16,6 +21,7 @@ class Review
      * @ORM\Id
      * @ORM\Column(type="string")
      * @ORM\GeneratedValue(strategy="UUID")
+     * @Groups({"review_default_out"})
      *
      * @var string
      */
@@ -23,13 +29,14 @@ class Review
 
     /**
      * @ORM\Column(type="text")
-     *
+     * @Groups({"review_default_out", "review_default_in"})
      * @var string
      */
     private $contents;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"review_default_out", "review_default_in"})
      *
      * @var boolean
      */
@@ -38,6 +45,7 @@ class Review
     /**
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="reviews")
      * @ORM\JoinColumn(name="book_uuid", referencedColumnName="uuid")
+     * @Groups({"review_default_out", "review_default_in"})
      *
      * @var Book
      */
