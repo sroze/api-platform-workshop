@@ -8,7 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
- * @ApiResource
+ * @ApiResource(itemOperations={
+ *     "get"={"method"="GET"},
+ *     "publish-reviews"={"route_name"="book_publish_reviews"}
+ * })
  *
  * @ORM\Entity
  */
@@ -31,9 +34,9 @@ class Book
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Review", mappedBy="book")
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="book", cascade={"persist"})
      *
-     * @var Review[]
+     * @var Collection
      */
     private $reviews;
 
