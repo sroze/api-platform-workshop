@@ -30,6 +30,8 @@ class Review
     /**
      * @ORM\Column(type="text")
      * @Groups({"review_default_out", "review_default_in"})
+     * @Assert\Type(type="string")
+     *
      * @var string
      */
     private $contents;

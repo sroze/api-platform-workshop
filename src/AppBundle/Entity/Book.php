@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ApiResource(attributes={
@@ -45,6 +47,7 @@ class Book
     /**
      * @ORM\Column(type="string")
      * @Groups({"book_collection_out", "book_default_in"})
+     * @Assert\Type(type="string")
      *
      * @var string
      */
